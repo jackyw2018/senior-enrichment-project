@@ -1,10 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Student = ({ id, firstName, lastName, email, imageUrl, gpa }) => {
+import { deleteStudent } from '../reducers/studentsReducer';
+
+const Student = ({
+  id,
+  firstName,
+  lastName,
+  email,
+  imageUrl,
+  gpa,
+  idx,
+  deleteStudent,
+}) => {
   return (
     <tr>
       <th scope="row" style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-        {id}
+        {idx + 1}
       </th>
       <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
         <a href={`#/students/${id}`} style={{ textDecoration: 'none' }}>
@@ -22,10 +34,22 @@ const Student = ({ id, firstName, lastName, email, imageUrl, gpa }) => {
         <i
           className="fas fa-times-circle text-danger"
           style={{ cursor: 'pointer' }}
+          onClick={() => {
+            deleteStudent(id);
+          }}
         />
       </td>
     </tr>
   );
 };
 
-export default Student;
+const mapDispatchToProps = dispatch => ({
+  deleteStudent: id => {
+    dispatch(deleteStudent(id));
+  },
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Student);

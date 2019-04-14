@@ -16,3 +16,8 @@ export const studentsPerCampusId = (students, campusId) => {
 export const findStudentById = (students, id) => {
   return students.find(student => student.id === id);
 };
+
+export const getinputFields = (object, arrayOfItemsToFilter) => {
+  const initialKeys = Object.keys(object);
+  return initialKeys.filter(key => arrayOfItemsToFilter.indexOf(key) > -1);
+};

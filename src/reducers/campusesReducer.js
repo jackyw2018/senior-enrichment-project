@@ -29,6 +29,7 @@ const initialState = [
 
 // ACTION TYPE
 const FETCH_CAMPUSES = 'FETCH_CAMPUSES';
+const CREATE_CAMPUS = 'CREATE_CAMPUS';
 
 // ACTION CREATOR
 const fetchCampuses = campuses => ({
@@ -36,14 +37,24 @@ const fetchCampuses = campuses => ({
   campuses,
 });
 
+const createCampus = campus => ({
+  type: CREATE_CAMPUS,
+  campus,
+});
+
 // THUNK CREATOR
 export const getCampuses = () => dispatch => {
   return axios
     .get('/api/campuses')
-    .then(response => {
-      return response.data;
-    })
+    .then(response => response.data)
     .then(campuses => dispatch(fetchCampuses(campuses)));
+};
+
+export const postCampus = campus => dispatch => {
+  return axios
+    .post('/api/campuses', campus)
+    .then(response => response.data)
+    .then(campus => dispatch(createCampus(campus)));
 };
 
 //REDUCER
@@ -51,6 +62,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CAMPUSES: {
       return [...action.campuses];
+    }
+    case CREATE_CAMPUS: {
+      return [...state, action.campus];
     }
     default: {
       return state;

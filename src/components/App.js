@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import Nav from './Nav';
 import Campuses from './Campuses';
 import CampusInfo from './CampusInfo';
-import AddForm from './AddForm';
+import AddCampus from './AddCampus';
+import AddStudent from './AddStudent';
 import Students from './Students';
 import { getCampuses } from '../reducers/campusesReducer';
 import { getStudents } from '../reducers/studentsReducer';
@@ -25,9 +26,9 @@ class App extends Component {
         <div className="container">
           <Route exact path="/" component={Campuses} />
           <Switch>
-            <Route path="/campuses/add" component={AddForm} />
+            <Route path="/campuses/add" component={AddCampus} />
             <Route path="/campuses/:id" component={CampusInfo} />
-            <Route path="/students/add" component={AddForm} />
+            <Route path="/students/add" component={AddStudent} />
             <Route exact path="/students" component={Students} />
             <Route path="/students/:id" component={StudentInfo} />
           </Switch>

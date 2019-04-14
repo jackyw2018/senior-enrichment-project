@@ -8,4 +8,31 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// POST /api/students
+router.post('/', (req, res, next) => {
+  const { firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
+
+  Student.create({
+    firstName,
+    lastName,
+    email,
+    imageUrl,
+    gpa: Number(gpa),
+    campusId: Number(campusId),
+  })
+    .then(student => res.json(student))
+    .catch(next);
+});
+
+// DELETE /api/students/:id
+router.delete('/:id', (req, res, next) => {
+  const { id } = req.params;
+
+  Student.destroy({ where: { id } })
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(next);
+});
+
 module.exports = router;

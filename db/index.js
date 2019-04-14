@@ -39,6 +39,7 @@ const randomCampusId = campusLength => {
   return Math.ceil(Math.random() * campusLength);
 };
 
+// Seedng Students
 const createStudents = numberOfStudents => {
   return Array.from({ length: numberOfStudents }, () => ({
     firstName: faker.name.firstName(),
@@ -50,6 +51,7 @@ const createStudents = numberOfStudents => {
   }));
 };
 
+// Seeding 20 students
 const students = createStudents(20);
 
 const syncAndSeed = () => {

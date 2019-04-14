@@ -5,7 +5,6 @@ import { studentsPerCampusId } from '../utils';
 
 const CampusInfo = props => {
   const { students, campus } = props;
-  if (!students.length) return null;
   return (
     <div>
       <h1 style={{ textAlign: 'center', margin: '1rem 0' }}>
@@ -20,11 +19,18 @@ const CampusInfo = props => {
       </div>
       <ul className="list-group" style={{ marginTop: '1rem' }}>
         <li className="list-group-item active">Students</li>
-        {students.map(({ id, firstName, lastName }, idx) => (
-          <li key={id} className="list-group-item">
-            {idx + 1}. {firstName} {lastName}
-          </li>
-        ))}
+        {students.length !== 0 ? (
+          students.map(({ id, firstName, lastName }, idx) => (
+            <li key={id} className="list-group-item">
+              {idx + 1}.{' '}
+              <a href={`#/students/${id}`} style={{ textDecoration: 'none' }}>
+                {firstName} {lastName}
+              </a>
+            </li>
+          ))
+        ) : (
+          <li className="list-group-item">No Students enrolled</li>
+        )}
       </ul>
     </div>
   );

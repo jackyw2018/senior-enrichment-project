@@ -58,8 +58,13 @@ const Students = props => {
           </tr>
         </thead>
         <tbody>
-          {students.map(student => (
-            <Student {...student} key={student.id} />
+          {students.map((student, idx) => (
+            <Student
+              {...student}
+              idx={idx}
+              key={student.id}
+              history={props.history}
+            />
           ))}
         </tbody>
       </table>
