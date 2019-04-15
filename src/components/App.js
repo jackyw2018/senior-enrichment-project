@@ -8,6 +8,7 @@ import CampusInfo from './CampusInfo';
 import AddCampus from './AddCampus';
 import AddStudent from './AddStudent';
 import Students from './Students';
+import NotFound from './NotFound';
 import { getCampuses } from '../reducers/campusesReducer';
 import { getStudents } from '../reducers/studentsReducer';
 import StudentInfo from './StudentInfo';
@@ -24,13 +25,16 @@ class App extends Component {
         <Nav />
         <hr style={{ margin: '0' }} />
         <div className="container">
-          <Route exact path="/" component={Campuses} />
           <Switch>
+            <Route exact path="/" component={Campuses} />
             <Route path="/campuses/add" component={AddCampus} />
-            <Route path="/campuses/:id" component={CampusInfo} />
+            <Route exact path="/campuses/:id" component={CampusInfo} />
+            <Route path="/campuses/:id/edit" component={AddCampus} />
             <Route path="/students/add" component={AddStudent} />
             <Route exact path="/students" component={Students} />
-            <Route path="/students/:id" component={StudentInfo} />
+            <Route exact path="/students/:id" component={StudentInfo} />
+            <Route path="/students/:id/edit" component={AddStudent} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>

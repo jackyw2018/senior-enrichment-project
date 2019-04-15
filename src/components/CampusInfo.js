@@ -15,6 +15,12 @@ const CampusInfo = props => {
         <div className="card-img-overlay">
           <h5 className="card-title">{campus.name}</h5>
           <p className="card-text">{campus.description}</p>
+          <a
+            className="btn btn-outline-light"
+            href={`#/campuses/${campus.id}/edit`}
+          >
+            Edit
+          </a>
         </div>
       </div>
       <ul className="list-group" style={{ marginTop: '1rem' }}>

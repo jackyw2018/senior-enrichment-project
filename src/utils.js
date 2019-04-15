@@ -14,7 +14,12 @@ export const studentsPerCampusId = (students, campusId) => {
 
 // A utility function that takes students and a student ID and returns the student per the provided student ID
 export const findStudentById = (students, id) => {
-  return students.find(student => student.id === id);
+  return students.find(student => student.id === Number(id));
+};
+
+// A utility function that takes students and a student ID and returns the student per the provided student ID
+export const findCampusById = (campuses, id) => {
+  return campuses.find(campus => campus.id === Number(id));
 };
 
 export const getinputFields = (object, arrayOfItemsToFilter) => {

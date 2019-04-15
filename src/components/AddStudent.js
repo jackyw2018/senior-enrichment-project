@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { postStudent } from '../reducers/studentsReducer';
+import { findStudentById } from '../utils';
 
 class AddStudent extends Component {
   state = {
@@ -11,7 +12,27 @@ class AddStudent extends Component {
     imageUrl: '',
     gpa: '',
     campusId: '',
+    action: 'Add',
   };
+
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      const campus = findStudentById(
+        this.props.students,
+        this.props.match.params.id
+      );
+      const { firstName, lastName, email, imageUrl, gpa, campusId } = campus;
+      this.setState({
+        firstName,
+        lastName,
+        email,
+        imageUrl,
+        gpa,
+        campusId,
+        action: 'Edit',
+      });
+    }
+  }
 
   onInputChange = event => {
     const field = event.target.id;
@@ -27,11 +48,21 @@ class AddStudent extends Component {
   render() {
     const { campuses } = this.props;
 
-    const { firstName, lastName, email, imageUrl, gpa, campusId } = this.state;
+    const {
+      firstName,
+      lastName,
+      email,
+      imageUrl,
+      gpa,
+      campusId,
+      action,
+    } = this.state;
     const { onInputChange, onFormSubmit } = this;
     return (
       <div>
-        <h1 style={{ textAlign: 'center', margin: '1rem 0' }}>Add Student</h1>
+        <h1 style={{ textAlign: 'center', margin: '1rem 0' }}>
+          {action} Student
+        </h1>
         <form onSubmit={onFormSubmit}>
           <div className="form-row">
             <div className="form-group col-md-6">

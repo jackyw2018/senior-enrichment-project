@@ -57,6 +57,12 @@ export const postCampus = campus => dispatch => {
     .then(campus => dispatch(createCampus(campus)));
 };
 
+export const putCampus = (campus, id) => dispatch => {
+  return axios.put(`/api/campuses/${id}`, campus).then(() => {
+    dispatch(getCampuses());
+  });
+};
+
 //REDUCER
 export default (state = initialState, action) => {
   switch (action.type) {

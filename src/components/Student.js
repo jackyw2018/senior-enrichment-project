@@ -31,6 +31,17 @@ const Student = ({
         {Number(gpa).toFixed(1)}
       </td>
       <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
+        <a href={`#/students/${id}/edit`}>
+          <i
+            className="fas fa-edit text-primary"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              console.log('clicked');
+            }}
+          />
+        </a>
+      </td>
+      <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
         <i
           className="fas fa-times-circle text-danger"
           style={{ cursor: 'pointer' }}

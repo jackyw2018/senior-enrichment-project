@@ -3,7 +3,7 @@ const { Campus } = require('../db');
 
 // GET /api/campuses
 router.get('/', (req, res, next) => {
-  Campus.findAll()
+  Campus.findAll({ order: ['createdAt'] })
     .then(campuses => res.json(campuses))
     .catch(next);
 });
@@ -22,6 +22,17 @@ router.delete('/:id', (req, res, next) => {
 
   Campus.destroy({ where: { id } })
     .then(() => res.sendStatus(204))
+    .catch(next);
+});
+
+// PUT /api/campuses/:id
+router.put('/:id', (req, res, next) => {
+  const { id } = req.params;
+  const { name, imageUrl, address, description } = req.body;
+  Campus.update({ name, imageUrl, address, description }, { where: { id } })
+    .then(() => {
+      res.sendStatus(204);
+    })
     .catch(next);
 });
 

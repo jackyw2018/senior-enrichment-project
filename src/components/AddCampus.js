@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { postCampus } from '../reducers/campusesReducer';
+import { postCampus, putCampus } from '../reducers/campusesReducer';
+import { findCampusById } from '../utils';
 
 class AddCampus extends Component {
   state = {
@@ -9,7 +10,22 @@ class AddCampus extends Component {
     imageUrl: '',
     address: '',
     description: '',
+    action: 'Add',
   };
+
+  // IF EDIT PAGE
+  // FILL IN DATA
+  // SUBMIT -> PUT REQUEST
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      const campus = findCampusById(
+        this.props.campuses,
+        this.props.match.params.id
+      );
+      const { name, imageUrl, address, description } = campus;
+      this.setState({ name, imageUrl, address, description, action: 'Edit' });
+    }
+  }
 
   onInputChange = event => {
     const field = event.target.id;
@@ -19,7 +35,12 @@ class AddCampus extends Component {
 
   onFormSubmit = event => {
     event.preventDefault();
-    this.props.postCampus(this.state);
+
+    if (this.props.match.params.id) {
+      this.props.putCampus(this.state, this.props.match.params.id);
+    } else {
+      this.props.postCampus(this.state);
+    }
   };
 
   render() {
@@ -28,7 +49,9 @@ class AddCampus extends Component {
 
     return (
       <div>
-        <h1 style={{ textAlign: 'center', margin: '1rem 0' }}>Add Campus</h1>
+        <h1 style={{ textAlign: 'center', margin: '1rem 0' }}>
+          {this.state.action} Campus
+        </h1>
         <form onSubmit={onFormSubmit}>
           <div className="form-group">
             <input
@@ -88,6 +111,10 @@ const mapStateToProps = ({ campuses, students }) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   postCampus: campus => {
     dispatch(postCampus(campus));
+    ownProps.history.push('/');
+  },
+  putCampus: (campus, id) => {
+    dispatch(putCampus(campus, id));
     ownProps.history.push('/');
   },
 });

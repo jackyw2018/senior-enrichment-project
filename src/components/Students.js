@@ -53,6 +53,12 @@ const Students = props => {
               scope="col"
               style={{ textAlign: 'center', verticalAlign: 'middle' }}
             >
+              Edit{' '}
+            </th>
+            <th
+              scope="col"
+              style={{ textAlign: 'center', verticalAlign: 'middle' }}
+            >
               Remove{' '}
             </th>
           </tr>
