@@ -26,3 +26,11 @@ export const getinputFields = (object, arrayOfItemsToFilter) => {
   const initialKeys = Object.keys(object);
   return initialKeys.filter(key => arrayOfItemsToFilter.indexOf(key) > -1);
 };
+
+export const getGPAFromStudents = students => {
+  return (
+    students.reduce((sum, student) => {
+      return (sum += student.gpa);
+    }, 0) / students.length
+  ).toFixed(1);
+};

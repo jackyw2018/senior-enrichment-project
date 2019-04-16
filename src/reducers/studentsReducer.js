@@ -32,6 +32,13 @@ export const postStudent = student => dispatch => {
     .then(student => dispatch(createStudent(student)));
 };
 
+export const putStudent = (student, id) => dispatch => {
+  return axios
+    .put(`/api/students/${id}`, student)
+    .then(response => response.data)
+    .then(() => dispatch(getStudents()));
+};
+
 export const deleteStudent = id => dispatch => {
   return axios.delete(`/api/students/${id}`).then(() => {
     dispatch(getStudents());

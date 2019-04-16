@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { postStudent } from '../reducers/studentsReducer';
+import { postStudent, putStudent } from '../reducers/studentsReducer';
 import { findStudentById } from '../utils';
 
 class AddStudent extends Component {
@@ -42,7 +42,23 @@ class AddStudent extends Component {
 
   onFormSubmit = event => {
     event.preventDefault();
-    this.props.postStudent(this.state);
+
+    if (this.props.match.params.id) {
+      const {
+        firstName,
+        lastName,
+        email,
+        imageUrl,
+        gpa,
+        campusId,
+      } = this.state;
+      this.props.putStudent(
+        { firstName, lastName, email, imageUrl, gpa, campusId },
+        this.props.match.params.id
+      );
+    } else {
+      this.props.postStudent(this.state);
+    }
   };
 
   render() {
@@ -157,7 +173,11 @@ const mapStateToProps = ({ campuses, students }) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   postStudent: student => {
     dispatch(postStudent(student));
-    ownProps.history.push('/');
+    ownProps.history.push('/students');
+  },
+  putStudent: (student, id) => {
+    dispatch(putStudent(student, id));
+    ownProps.history.push('/students');
   },
 });
 

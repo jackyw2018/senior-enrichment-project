@@ -63,6 +63,12 @@ export const putCampus = (campus, id) => dispatch => {
   });
 };
 
+export const deleteCampus = id => dispatch => {
+  return axios.delete(`/api/campuses/${id}`).then(() => {
+    dispatch(getCampuses());
+  });
+};
+
 //REDUCER
 export default (state = initialState, action) => {
   switch (action.type) {

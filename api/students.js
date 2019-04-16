@@ -3,7 +3,7 @@ const { Student } = require('../db');
 
 // GET /api/students
 router.get('/', (req, res, next) => {
-  Student.findAll({ order: ['createdAt'] })
+  Student.findAll({ order: ['firstName'] })
     .then(students => res.json(students))
     .catch(next);
 });

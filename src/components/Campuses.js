@@ -2,9 +2,10 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Campus from './Campus';
+import { studentsPerCampusId } from '../utils';
 
 const Campuses = props => {
-  const { campuses } = props;
+  const { campuses, students } = props;
   return (
     <Fragment>
       <div className="d-flex justify-content-end " style={{ padding: '1rem' }}>
@@ -20,15 +21,22 @@ const Campuses = props => {
         style={{ width: '100%' }}
       >
         {campuses.map(({ id, name, imageUrl }) => (
-          <Campus key={id} id={id} name={name} imageUrl={imageUrl} />
+          <Campus
+            key={id}
+            id={id}
+            name={name}
+            students={studentsPerCampusId(students, id)}
+            imageUrl={imageUrl}
+          />
         ))}
       </div>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ campuses }) => ({
+const mapStateToProps = ({ campuses, students }) => ({
   campuses,
+  students,
 });
 
 export default connect(mapStateToProps)(Campuses);
